@@ -1,0 +1,13 @@
+{
+  "backend_servers": [
+    {
+      "title": "Local Psono Server",
+      "url": "http://localhost:10200/server"
+    }
+  ],
+  "allow_custom_server": false,
+  "public_registration_enabled": true,
+  "saml_enabled": false,
+  "oidc_enabled": false,
+  "invite_friend_enabled": false
+}

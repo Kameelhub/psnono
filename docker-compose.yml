@@ -1,0 +1,43 @@
+services:
+  psono-database:
+    image: postgres:13-alpine
+    container_name: psono-database
+    environment:
+      POSTGRES_USER: psono
+      POSTGRES_PASSWORD: psono
+      POSTGRES_DB: psono
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d psono']
+      timeout: '5s'
+      start_period: '30s'
+
+  psono-combo:
+    image: psono/psono-combo:latest
+    environment:
+      PSONO_HOST_URL: "http://localhost:10200"
+      PSONO_SECRET_KEY: "fGiUvMEqz0FfxLLURUxeo7rPvIpfHMpu6sHcVGiLawWWocc6hZxVDHDK4LjlEvaG"
+      PSONO_ACTIVATION_LINK_SECRET: "7a9GcdgekeIOMIJM6VBBbJFz7yYPgPzwFVNL2QOAQ3KuC6QWRtSdM3ybkC5xcgQx"
+      PSONO_DB_SECRET: "lEqhc5raeaSbeZ8M7g1Ji6CL6CevsoZ0tSkcUv96qOsAVjSoe1BEyaLOUVv3Vfg6"
+      PSONO_EMAIL_SECRET_SALT: "$2b$12$64YqGMRZNC05bbZmW.nbB."
+      PSONO_PRIVATE_KEY: "f06196620b77e2e602683a3100bd5394b45bc5a02d501be272154bfec419c8e3"
+      PSONO_PUBLIC_KEY: "337e0318d87deffc9fb4e6b0a0a331790451a6bff1d1a80baed9d6c719df1b47"
+      PSONO_POSTGRES_USER: "psono"
+      PSONO_POSTGRES_PASSWORD: "psono"
+      PSONO_POSTGRES_DB: "psono"
+      PSONO_POSTGRES_HOST: "psono-database"
+      PSONO_POSTGRES_PORT: "5432"
+      ALLOW_REGISTRATION: "True"
+    container_name: psono-combo
+    depends_on:
+      - psono-database
+    ports:
+      - "10200:80"
+    volumes:
+      - ./settings.yaml:/root/.psono_server/settings.yaml
+      - ./config.json:/usr/share/nginx/html/config.json
+      - ./config.json:/usr/share/nginx/html/portal/config.json
+    restart: unless-stopped
+ 

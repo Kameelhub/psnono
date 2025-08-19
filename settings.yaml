@@ -1,0 +1,48 @@
+SECRET_KEY: 'fGiUvMEqz0FfxLLURUxeo7rPvIpfHMpu6sHcVGiLawWWocc6hZxVDHDK4LjlEvaG'
+ACTIVATION_LINK_SECRET: '7a9GcdgekeIOMIJM6VBBbJFz7yYPgPzwFVNL2QOAQ3KuC6QWRtSdM3ybkC5xcgQx'
+DB_SECRET: 'lEqhc5raeaSbeZ8M7g1Ji6CL6CevsoZ0tSkcUv96qOsAVjSoe1BEyaLOUVv3Vfg6'
+EMAIL_SECRET_SALT: '$2b$12$64YqGMRZNC05bbZmW.nbB.'
+PRIVATE_KEY: 'f06196620b77e2e602683a3100bd5394b45bc5a02d501be272154bfec419c8e3'
+PUBLIC_KEY: '337e0318d87deffc9fb4e6b0a0a331790451a6bff1d1a80baed9d6c719df1b47'
+
+# Database instellingen
+DATABASES:
+  default:
+    ENGINE: django.db.backends.postgresql_psycopg2
+    NAME: 'psono'
+    USER: 'psono'
+    PASSWORD: 'psono'
+    HOST: 'psono-database'
+    PORT: '5432'
+
+# Domein en URLs
+ALLOWED_HOSTS:
+  - '*'
+
+ALLOWED_DOMAINS: 
+- '*'
+- 'localhost'
+
+ALLOW_REGISTRATION: True
+
+DEBUG: True
+
+# Backend API URL
+SERVER_URL: 'http://localhost:10200/server'
+WEB_CLIENT_URL: 'http://localhost:10200'
+
+# E-mail (dummy voor lokale tests)
+EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FROM: 'admin@example.com'
+EMAIL_HOST: 'host.docker.internal'
+EMAIL_PORT: 1025
+EMAIL_USE_TLS: false
+EMAIL_USE_SSL: false
+EMAIL_HOST_USER: ''
+EMAIL_HOST_PASSWORD: ''
+
+webauthn:
+  rp_name: "Psono Password Manager"       # Vrije naam die de gebruiker ziet
+  rp_id: "localhost"               # EXACT het domein waar je webclient draait, zonder https://
+  rp_origin: "http://localhost:10200"   # Volledige URL inclusief https://
+  timeout: 60000     
